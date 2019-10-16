@@ -1,3 +1,5 @@
+package src;
+
 public class TokenRecord {
 
     public String lexeme;
