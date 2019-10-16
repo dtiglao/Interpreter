@@ -80,6 +80,14 @@ public class TestProgram {
                         token = new TokenRecord(t, "05", "Power_Op", srcLine);
                         tokenList.add(token);
                         break;
+                    case "(":
+                    	token = new TokenRecord(t, "06", "Left_Pare", srcLine);
+                    	tokenList.add(token);
+                    	break;
+                    case ")":
+                    	token = new TokenRecord(t, "07", "Right_Pare", srcLine);
+                    	tokenList.add(token);
+                    	break;
                     default:
                         char[] charArray = t.toCharArray();
                         String[] array = new String[charArray.length];
