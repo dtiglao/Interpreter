@@ -1,0 +1,6 @@
+# minimal julia sample code
+a = 1
+A = 30
+b = 5
+B = - 4 + 5 # -9
+

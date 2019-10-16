@@ -10,11 +10,11 @@ public class TestProgram {
     public static String[] array = {"begin", "add", "in", "end"};
     public static List<String> keywords = Arrays.asList(array);
     public static int s_line = 0;
-    public static List<TokenRecord> bucket = new ArrayList<>(100);
+    public static List<TokenRecord> bucket = new ArrayList<>(1000);
 
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println(new File(".").getAbsoluteFile());
-        File file = new File("src\\InputFiles\\basic_julia.txt");
+        File file = new File("test.txt");
         Scanner scan = new Scanner(file);
 
         String[] array = {"begin", "add", "in", "end"};
@@ -24,6 +24,9 @@ public class TestProgram {
             s_line++;
             String[] tokens= line.split(" ");
             tokenCheck(tokens, bucket, s_line);
+        }
+        for (int i = 0; i < bucket.size(); i++) {
+        	bucket.get(i).printRecord();
         }
     }
 
