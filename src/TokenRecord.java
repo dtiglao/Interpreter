@@ -19,8 +19,8 @@ public class TokenRecord {
         if (tokenName.contains("Op")) { this.tokenCode = opCode(tokenName); }
         else if (tokenName.contains("Lit")) { this.tokenCode = litCode(tokenName); }
         else if (tokenName.contains("Identifier")) { this.tokenCode = idCode(tokenName); }
-        else if (tokenName.contains("Func")) { this.tokenCode = funcCode(tokenName); }
-        else { this.tokenCode = keywordCode(tokenName); }
+        else if (tokenName.contains("Function")) { this.tokenCode = funcCode(tokenName); }
+        else { this.tokenCode = keywordCode(lexeme); }
     }
 
     // printRecord() is a method that prints out the attributes of a record in a formatted way
@@ -37,7 +37,7 @@ public class TokenRecord {
         return "3001";
     }
 
-    /** funcCode originaaly returned the funcCode for all functions however never completed the logic to find functions
+    /** funcCode returns the funcCode for all functions found
      * @param functionName
      * @return tokenCode starting with "4---"
      */

@@ -1,22 +1,20 @@
-Function e ()  # Not sure if required but why risk it
-       float a = 5.5
-       int b = 6
-       A = 7
-       int c = a * b
-       float d = a - b + c
-       int e = (a - b) / d
-       print(“A: “ + a)
-       print(“B: “ + b)
-       print(“C: “ + c)
-       print(“D: “ + d)
-       print(“E: “ + e)
-       if(a > b) then
-        print(“Cool” + “ Birds)
-       End
-        else then
-        print(“Blue Birds”)
-       End
+begin
+	# Comment
+	x = 1; 
+	y = 2.0;
+
+	k = x % y;
+
+	print("String")
+	x = (x + 3);
+	print(4+7);
+	y = 4+5;
+	v = x ^ y;
+	v = x^y;
 end
 
+function e()
+	print("String")
+	
 
-
+end

@@ -19,7 +19,7 @@ public class TestProgram {
     public static List<TokenRecord> bucket = new ArrayList<>(200);
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("src\\InputFiles\\basic_julia.txt");
+        File file = new File("src\\InputFiles\\julia_test.txt");
         Scanner scan = new Scanner(file);
 
         while (scan.hasNextLine()) {
@@ -52,10 +52,17 @@ public class TestProgram {
             }
             // System.out.println(t);
             if (t.contains("#") || t == " ") return;
-            else if (t.contains("\"")) {
-                token = new TokenRecord(t, "Str_Lit", srcLine);
-                tokenList.add(token);
-                tokenAdded = true;
+            else if (t.contains("(") && t.length() > 1) {
+                int i = t.indexOf("(");
+                if (i > 0) {
+                    if (Character.isAlphabetic(t.charAt(i - 1))) {
+                        token = new TokenRecord(t, "Function", srcLine);
+                        tokenList.add(token);
+                        t = t.substring(i);
+                        tokenAdded = true;
+                        tokenCheck(t.split("[()]+"), tokenList, srcLine);
+                    }
+                }
             }
             else if (t.matches("[-0-9.]+")) {
                 if ((t.startsWith("-") && t.contains(".")) || (t.contains(".") && t.length() > 1)) {
@@ -67,21 +74,21 @@ public class TestProgram {
                     tokenList.add(token);
                     tokenAdded = true;
                 }
-            } else if (t.matches("[A-Za-z0-9_()]+")) {
+            } else if (t.matches("[A-Za-z0-9_]+")) {
                 if (keywords.contains(t)) {
                     token = new TokenRecord(t, "Keyword", srcLine);
                     tokenList.add(token);
                     tokenAdded = true;
-                } else if (t.contains("()")) {
-                    token = new TokenRecord(t, "function", srcLine);
-                    tokenList.add(token);
-                    tokenAdded = true;
-                } else if (t.matches("[A-Za-z0-9_]+")){
+                } else if (t.matches("[A-Za-z0-9_]+")) {
                     token = new TokenRecord(t, "Identifier", srcLine);
                     // find what kind
                     tokenList.add(token);
                     tokenAdded = true;
                 }
+            } else if (t.startsWith("\"")) {
+                token = new TokenRecord(t, "Str_Lit", srcLine);
+                tokenList.add(token);
+                tokenAdded = true;
             } if (!tokenAdded){
                 switch (t) {
                     case "=":
