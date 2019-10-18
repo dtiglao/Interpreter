@@ -4,16 +4,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
-import java.util.stream.Stream;
+
+/** Rosny Colas and Darius Tiglao
+ * This class TestProgram simply runs the Scanner
+ * Global Variables include an ArrayList of Keywords and an ArrayList that will hold TokenRecords
+ * The main method instantiates a Scanner object and scans the input file line by line
+ * These lines split by white spaces " " and the array of strings are fed into the TokenCheck method line by line
+ */
 
 public class TestProgram {
-    public static String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
+    public static String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then"};
     public static List<String> keywords = Arrays.asList(array);
     public static int s_line = 0;
     public static List<TokenRecord> bucket = new ArrayList<>(200);
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("src\\InputFiles\\sample_julia.txt");
+        File file = new File("src\\InputFiles\\basic_julia.txt");
         Scanner scan = new Scanner(file);
 
         while (scan.hasNextLine()) {
@@ -28,9 +34,16 @@ public class TestProgram {
         }
     }
 
+    /** TokenCheck takes in an array of possible tokens, a tokenList to add the tokens to, and srcLine for recording purposes
+     * @param tokens
+     * @param tokenList
+     * @param srcLine
+     */
     public static void tokenCheck(String[] tokens, List<TokenRecord> tokenList, int srcLine) {
         TokenRecord token;
+        boolean tokenAdded;
         for (String t : tokens) {
+            tokenAdded = false;
             if (t.contains(";")) {
                 t = t.substring(0, t.indexOf(";"));
             }
@@ -40,101 +53,111 @@ public class TestProgram {
             // System.out.println(t);
             if (t.contains("#") || t == " ") return;
             else if (t.contains("\"")) {
-                token = new TokenRecord(t, "10", "String_Lit", srcLine);
+                token = new TokenRecord(t, "Str_Lit", srcLine);
                 tokenList.add(token);
+                tokenAdded = true;
             }
-            else if (t.matches("[0-9.]+")) {
-                if (t.contains(".")) {
-                    token = new TokenRecord(t, "12", "Float_Lit", srcLine);
+            else if (t.matches("[-0-9.]+")) {
+                if ((t.startsWith("-") && t.contains(".")) || (t.contains(".") && t.length() > 1)) {
+                    token = new TokenRecord(t, "Float_Lit", srcLine);
                     tokenList.add(token);
-                } else {
-                    token = new TokenRecord(t, "11", "Int_Lit", srcLine);
+                    tokenAdded = true;
+                } else if ((t.startsWith("-") && t.length() > 1) || (!t.startsWith("-") && !t.contains("."))) {
+                    token = new TokenRecord(t, "Int_Lit", srcLine);
                     tokenList.add(token);
+                    tokenAdded = true;
                 }
             } else if (t.matches("[A-Za-z0-9_()]+")) {
                 if (keywords.contains(t)) {
-                    token = new TokenRecord(t, "13", "Keyword", srcLine);
+                    token = new TokenRecord(t, "Keyword", srcLine);
                     tokenList.add(token);
+                    tokenAdded = true;
                 } else if (t.contains("()")) {
-                    token = new TokenRecord(t, "30", "function", srcLine);
+                    token = new TokenRecord(t, "function", srcLine);
                     tokenList.add(token);
+                    tokenAdded = true;
                 } else if (t.matches("[A-Za-z0-9_]+")){
-                    token = new TokenRecord(t, "14", "Identifier", srcLine);
+                    token = new TokenRecord(t, "Identifier", srcLine);
                     // find what kind
                     tokenList.add(token);
+                    tokenAdded = true;
                 }
-            } else {
+            } if (!tokenAdded){
                 switch (t) {
                     case "=":
-                        token = new TokenRecord(t, "00", "Assign_Op", srcLine);
+                        token = new TokenRecord(t, "Assign_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "+":
-                        token = new TokenRecord(t, "01", "Plus_Op", srcLine);
+                        token = new TokenRecord(t, "Plus_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "-":
-                        token = new TokenRecord(t, "02", "Minus_Op", srcLine);
+                        token = new TokenRecord(t, "Minus_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "*":
-                        token = new TokenRecord(t, "03", "Mult_Op", srcLine);
+                        token = new TokenRecord(t, "Mult_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "/":
-                        token = new TokenRecord(t, "04", "Div_Lit", srcLine);
+                        token = new TokenRecord(t,"Div_Lit", srcLine);
                         tokenList.add(token);
                         break;
                     case "^":
-                        token = new TokenRecord(t, "05", "Power_Op", srcLine);
+                        token = new TokenRecord(t, "Power_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case ">":
-                        token = new TokenRecord(t, "06", "GT_Op", srcLine);
+                        token = new TokenRecord(t, "GT_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case ">=":
-                        token = new TokenRecord(t, "07", "GE_Op", srcLine);
+                        token = new TokenRecord(t, "GE_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "<":
-                        token = new TokenRecord(t, "08", "LT_Op", srcLine);
+                        token = new TokenRecord(t, "LT_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "<=":
-                        token = new TokenRecord(t, "09", "LE_Op", srcLine);
+                        token = new TokenRecord(t, "LE_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "==":
-                        token = new TokenRecord(t, "010", "EQ_Op", srcLine);
+                        token = new TokenRecord(t, "Eq_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "!=":
-                        token = new TokenRecord(t, "011", "NE_Op", srcLine);
+                        token = new TokenRecord(t, "NotEq_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "\\":
-                        token = new TokenRecord(t, "012", "Rev_Div_Op", srcLine);
+                        token = new TokenRecord(t, "RevDiv_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "%":
-                        token = new TokenRecord(t, "013", "Rem_Op", srcLine);
+                        token = new TokenRecord(t, "Rem_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "+=":
-                        token = new TokenRecord(t, "014", "Inc_By_Op", srcLine);
+                        token = new TokenRecord(t, "IncBy_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "-=":
-                        token = new TokenRecord(t, "015", "Dec_By_Op", srcLine);
+                        token = new TokenRecord(t, "DecBy_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case "(":
-                        token = new TokenRecord(t, "016", "LP_Op", srcLine);
+                        token = new TokenRecord(t, "LP_Op", srcLine);
                         tokenList.add(token);
                         break;
                     case ")":
-                        token = new TokenRecord(t, "017", "RP_Op", srcLine);
+                        token = new TokenRecord(t, "RP_Op", srcLine);
+                        tokenList.add(token);
+                        break;
+                    case "&&":
+                        token = new TokenRecord(t, "And_Op", srcLine);
                         tokenList.add(token);
                         break;
                     default:
@@ -151,6 +174,11 @@ public class TestProgram {
         }
     }
 
+    /** Forgot string s.replaceAll() was a thing so we created a function to get rid of all the tabs since the tabs were
+     * breaking the program...
+     * @param s
+     * @return s
+     */
     public static String checkForTabs(String s) {
         if (s.contains("\t")) {
             return s.substring(s.indexOf("\t") + 1);
