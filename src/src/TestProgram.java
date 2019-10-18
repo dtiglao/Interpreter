@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class TestProgram {
     public static String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
@@ -15,7 +14,7 @@ public class TestProgram {
     public static List<TokenRecord> bucket = new ArrayList<>(200);
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("src\\InputFiles\\basic_julia.txt");
+        File file = new File("src\\InputFiles\\sample_julia.txt");
         Scanner scan = new Scanner(file);
 
         while (scan.hasNextLine()) {
@@ -54,16 +53,13 @@ public class TestProgram {
                     tokenList.add(token);
                 }
             } else if (t.matches("[A-Za-z0-9_()]+")) {
-                if (t.contains("()")) {
-                    token = new TokenRecord(t, "30", "function", srcLine);
-                    tokenList.add(token);
-                }
-            }
-            else if (t.matches("[A-Za-z0-9_]+")) {
                 if (keywords.contains(t)) {
                     token = new TokenRecord(t, "13", "Keyword", srcLine);
                     tokenList.add(token);
-                } else {
+                } else if (t.contains("()")) {
+                    token = new TokenRecord(t, "30", "function", srcLine);
+                    tokenList.add(token);
+                } else if (t.matches("[A-Za-z0-9_]+")){
                     token = new TokenRecord(t, "14", "Identifier", srcLine);
                     // find what kind
                     tokenList.add(token);
