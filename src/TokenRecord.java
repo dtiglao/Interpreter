@@ -23,10 +23,12 @@ public class TokenRecord {
         else { this.tokenCode = keywordCode(lexeme); }
     }
 
-    // printRecord() is a method that prints out the attributes of a record in a formatted way
-    public void printRecord() {
-        if (this.tokenName.length() > 7) { System.out.println(tokenCode + "\t" + tokenName + "\t\t" + lexeme); }
-        else { System.out.println(tokenCode + "\t" + tokenName + "\t\t\t" + lexeme); }
+    /** printRecord will print the attributes of each TokenRecord
+     * @return String
+     */
+    public String printRecord() {
+        if (this.tokenName.length() > 7) { return tokenCode + "\t" + tokenName + "\t\t" + lexeme; }
+        else { return tokenCode + "\t" + tokenName + "\t\t\t" + lexeme; }
     }
 
     /** idCode returns the tokenCode for all identifiers

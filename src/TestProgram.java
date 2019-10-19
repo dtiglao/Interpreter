@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -25,12 +24,19 @@ public class TestProgram {
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
             s_line++;
-            String[] tokens= line.split(" ");
+            String[] tokens = line.split(" ");
             tokenCheck(tokens, bucket, s_line);
         }
 
-        for (TokenRecord tr : bucket) {
-            tr.printRecord();
+        File out = new File("src\\OutputFiles\\Token_Output.txt");
+        try (BufferedWriter output = new BufferedWriter(new FileWriter(out))) {
+            for (TokenRecord tr : bucket) {
+                String str = tr.printRecord();
+                output.write(str);
+                output.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

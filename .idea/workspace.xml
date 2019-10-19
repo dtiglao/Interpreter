@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d35f1e65-47a0-443b-9e25-2d6f5f09732f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Interpreter/InputFiles/julia_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/InputFiles/julia_test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Interpreter/TestProgram.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/TestProgram.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Interpreter/TokenRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/TokenRecord.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputFiles/julia_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputFiles/julia_test.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TestProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TestProgram.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/TokenRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TokenRecord.java" afterDir="false" />
     </list>
