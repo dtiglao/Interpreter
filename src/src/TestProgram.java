@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class TestProgram {
     public static String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
@@ -39,7 +38,7 @@ public class TestProgram {
             while (t.contains("\t")) {
                 t = checkForTabs(t);
             }
-            // System.out.println(t);
+            //System.out.println(t);
             if (t.contains("#") || t == " ") return;
             else if (t.contains("\"")) {
                 token = new TokenRecord(t, "10", "String_Lit", srcLine);
