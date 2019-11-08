@@ -1,3 +1,5 @@
+package JuliaScanner;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +14,6 @@ import java.util.List;
  */
 
 public class TestProgram {
-    public static int s_line = 0;
 
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("src\\InputFiles\\julia_test.txt");

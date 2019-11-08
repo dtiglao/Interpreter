@@ -1,3 +1,5 @@
+package JuliaScanner;
+
 /** Rosny Colas and Darius Tiglao
  * Class: TokenRecord
  * TokenRecord is what the name implies. It is a record that stores the information for each token.
@@ -6,12 +8,12 @@
 
 public class TokenRecord {
 
-    public String lexeme;
-    public String tokenCode;
-    public String tokenName;
-    public int srcLine;
+    private String lexeme;
+    private String tokenCode;
+    private String tokenName;
+    private int srcLine;
 
-    public TokenRecord(String lexeme, String tokenName, int srcLine) {
+    TokenRecord(String lexeme, String tokenName, int srcLine) {
         this.lexeme = lexeme;
         this.tokenName = tokenName;
         this.srcLine = srcLine;
@@ -26,7 +28,7 @@ public class TokenRecord {
     /** printRecord will print the attributes of each TokenRecord
      * @return String
      */
-    public String printRecord() {
+    String printRecord() {
         if (this.tokenName.length() > 7) { return tokenCode + "\t" + tokenName + "\t\t" + lexeme; }
         else { return tokenCode + "\t" + tokenName + "\t\t\t" + lexeme; }
     }
@@ -35,7 +37,7 @@ public class TokenRecord {
      * @param idName
      * @return tokenCode starting with "3---"
      */
-    public String idCode(String idName) {
+    private String idCode(String idName) {
         return "3001";
     }
 
@@ -43,7 +45,7 @@ public class TokenRecord {
      * @param functionName
      * @return tokenCode starting with "4---"
      */
-    public String funcCode(String functionName) {
+    private String funcCode(String functionName) {
         return "4001";
     }
 
@@ -51,7 +53,7 @@ public class TokenRecord {
      * @param keywordName
      * @return tokenCode starting with "1---"
      */
-    public String keywordCode(String keywordName) {
+    private String keywordCode(String keywordName) {
         switch(keywordName) {
             case "begin":
                 return "1001";
@@ -81,7 +83,7 @@ public class TokenRecord {
      * @param opName
      * @return tokenCode starting with "0---"
      */
-    public String opCode(String opName) {
+    private String opCode(String opName) {
         switch (opName) {
             case "Assign_Op":
                 return "0100";
@@ -129,7 +131,7 @@ public class TokenRecord {
      * @param litName
      * @return tokenCode starting with "2---"
      */
-    public String litCode(String litName) {
+    private String litCode(String litName) {
         switch(litName) {
             case "Int_Lit":
                 return "2001";
