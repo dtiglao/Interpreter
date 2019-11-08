@@ -5,17 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class JuliaScanner {
+class JuliaScanner {
     private String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then"};
     private List<String> keywords = Arrays.asList(array);
-    private int s_line;
     private List<TokenRecord> bucket = new ArrayList<>(200);
-    private Scanner scan;
 
     JuliaScanner(File file) throws FileNotFoundException {
         this.keywords = keywords;
         this.bucket = bucket;
-        s_line = 0;
+        int s_line = 0;
         Scanner scan = new Scanner(file);
 
         while (scan.hasNextLine()) {
@@ -24,10 +22,6 @@ public class JuliaScanner {
             String[] tokens = line.split(" ");
             tokenCheck(tokens, bucket, s_line);
         }
-    }
-
-    Scanner getScanner() {
-        return this.scan;
     }
 
     List<TokenRecord> getBucket() {
@@ -39,7 +33,7 @@ public class JuliaScanner {
      * @param tokenList
      * @param srcLine
      */
-    void tokenCheck(String[] tokens, List<TokenRecord> tokenList, int srcLine) {
+    private void tokenCheck(String[] tokens, List<TokenRecord> tokenList, int srcLine) {
         TokenRecord token;
         boolean tokenAdded;
         for (String t : tokens) {
@@ -186,7 +180,7 @@ public class JuliaScanner {
      * @param s
      * @return s
      */
-    public String checkForTabs(String s) {
+    private String checkForTabs(String s) {
         if (s.contains("\t")) {
             return s.substring(s.indexOf("\t") + 1);
         }

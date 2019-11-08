@@ -17,9 +17,7 @@ public class TestProgram {
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("src\\InputFiles\\julia_test.txt");
         JuliaScanner jScan = new JuliaScanner(file);
-        Scanner scan = jScan.getScanner();
 
-        s_line = 0;
         List<TokenRecord> bucket = jScan.getBucket();
 
         File out = new File("src\\OutputFiles\\Token_Output.txt");
