@@ -8,9 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 
 class JuliaScanner {
-    private String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then"};
+    private String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
     private List<String> keywords = Arrays.asList(array);
     private List<TokenRecord> bucket = new ArrayList<>(200);
+    private int block_num = 0;
 
     JuliaScanner(File file) throws FileNotFoundException {
         this.keywords = keywords;
@@ -26,9 +27,25 @@ class JuliaScanner {
         }
     }
 
+    JuliaScanner(String str) {
+        this.keywords = keywords;
+        int s_line = 0;
+        Scanner scan = new Scanner(str);
+
+        while (scan.hasNextLine()) {
+            String line = scan.nextLine();
+            s_line++;
+            String[] tokens = line.split(" ");
+            tokenCheck(tokens, bucket, s_line);
+        }
+    }
+
     List<TokenRecord> getBucket() {
         return this.bucket;
     }
+    int incBlock() { return block_num++; }
+    int decBlock() { return block_num--; }
+    int getBlockNum() { return block_num; }
 
     /** TokenCheck takes in an array of possible tokens, a tokenList to add the tokens to, and srcLine for recording purposes
      * @param tokens
@@ -36,8 +53,9 @@ class JuliaScanner {
      * @param srcLine
      */
     private void tokenCheck(String[] tokens, List<TokenRecord> tokenList, int srcLine) {
-        TokenRecord token;
+        TokenRecord token = new TokenRecord();
         boolean tokenAdded;
+        boolean space = false;
         for (String t : tokens) {
             tokenAdded = false;
             if (t.contains(";")) {
@@ -53,7 +71,7 @@ class JuliaScanner {
                 if (i > 0) {
                     if (Character.isAlphabetic(t.charAt(i - 1))) {
                         token = new TokenRecord(t, "Function", srcLine);
-                        tokenList.add(token);
+                        
                         t = t.substring(i);
                         tokenAdded = true;
                         tokenCheck(t.split("[()]+"), tokenList, srcLine);
@@ -63,105 +81,111 @@ class JuliaScanner {
             else if (t.matches("[-0-9.]+")) {
                 if ((t.startsWith("-") && t.contains(".")) || (t.contains(".") && t.length() > 1)) {
                     token = new TokenRecord(t, "Float_Lit", srcLine);
-                    tokenList.add(token);
+                    
                     tokenAdded = true;
                 } else if ((t.startsWith("-") && t.length() > 1) || (!t.startsWith("-") && !t.contains("."))) {
                     token = new TokenRecord(t, "Int_Lit", srcLine);
-                    tokenList.add(token);
+                    
                     tokenAdded = true;
                 }
             } else if (t.matches("[A-Za-z0-9_]+")) {
                 if (this.keywords.contains(t)) {
                     token = new TokenRecord(t, "Keyword", srcLine);
-                    tokenList.add(token);
+                    
                     tokenAdded = true;
                 } else if (t.matches("[A-Za-z0-9_]+")) {
                     token = new TokenRecord(t, "Identifier", srcLine);
                     // find what kind
-                    tokenList.add(token);
+                    
                     tokenAdded = true;
                 }
             } else if (t.startsWith("\"")) {
                 token = new TokenRecord(t, "Str_Lit", srcLine);
-                tokenList.add(token);
+                
                 tokenAdded = true;
             } if (!tokenAdded){
                 switch (t) {
+                    case " ":
+                        space = true;
+                        break;
+                    case ":":
+                        token = new TokenRecord(t, "Iter_Op", srcLine);
+                        break;
                     case "=":
                         token = new TokenRecord(t, "Assign_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "+":
                         token = new TokenRecord(t, "Plus_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "-":
                         token = new TokenRecord(t, "Minus_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "*":
                         token = new TokenRecord(t, "Mult_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "/":
                         token = new TokenRecord(t,"Div_Lit", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "^":
                         token = new TokenRecord(t, "Power_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case ">":
                         token = new TokenRecord(t, "GT_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case ">=":
                         token = new TokenRecord(t, "GE_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "<":
                         token = new TokenRecord(t, "LT_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "<=":
                         token = new TokenRecord(t, "LE_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "==":
                         token = new TokenRecord(t, "Eq_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "!=":
                         token = new TokenRecord(t, "NotEq_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "\\":
                         token = new TokenRecord(t, "RevDiv_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "%":
                         token = new TokenRecord(t, "Rem_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "+=":
                         token = new TokenRecord(t, "IncBy_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "-=":
                         token = new TokenRecord(t, "DecBy_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "(":
                         token = new TokenRecord(t, "LP_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case ")":
                         token = new TokenRecord(t, "RP_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     case "&&":
                         token = new TokenRecord(t, "And_Op", srcLine);
-                        tokenList.add(token);
+                        
                         break;
                     default:
                         char[] charArray = t.toCharArray();
@@ -174,6 +198,12 @@ class JuliaScanner {
                         tokenCheck(array, tokenList, srcLine);
                 }
             }
+            int b = token.blockCheck();
+            if (b == 0) decBlock();
+            else if (b > 0) incBlock();
+            token.setBlockNumber(block_num);
+
+            if (!space) { tokenList.add(token); }
         }
     }
 

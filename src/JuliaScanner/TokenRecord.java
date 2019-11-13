@@ -12,6 +12,13 @@ public class TokenRecord {
     private String tokenCode;
     private String tokenName;
     private int srcLine;
+    private int blockNumber;
+
+    TokenRecord() {
+        this.lexeme = "null";
+        this.tokenCode = "null";
+        this.tokenName = "null";
+    }
 
     TokenRecord(String lexeme, String tokenName, int srcLine) {
         this.lexeme = lexeme;
@@ -23,6 +30,20 @@ public class TokenRecord {
         else if (tokenName.contains("Identifier")) { this.tokenCode = idCode(tokenName); }
         else if (tokenName.contains("Function")) { this.tokenCode = funcCode(tokenName); }
         else { this.tokenCode = keywordCode(lexeme); }
+    }
+
+    int blockCheck() {
+        if (tokenCode.equals("1002")) return 0;
+        if (tokenCode.equals("1005") || tokenCode.equals("1006") || tokenCode.equals("1007")) return 1;
+        else return -1;
+    }
+
+    String getTokenCode() {
+        return this.tokenCode;
+    }
+
+    void setBlockNumber(int blockNumber) {
+        this.blockNumber = blockNumber;
     }
 
     /** printRecord will print the attributes of each TokenRecord
@@ -75,6 +96,8 @@ public class TokenRecord {
                 return "1009";
             case "then":
                 return "1010";
+            case "print":
+                return "1011";
         }
         return "1000";
     }
@@ -123,6 +146,8 @@ public class TokenRecord {
                 return "0117";
             case "And_Op":
                 return "0018";
+            case "Iter_Op":
+                return "00019";
         }
         return "0000";
     }
