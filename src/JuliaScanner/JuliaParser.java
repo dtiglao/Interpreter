@@ -2,16 +2,20 @@ package JuliaScanner;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
+import java.util.Scanner;
 
 class JuliaParser {
 
-    JuliaParser(File file) throws FileNotFoundException {
+    JuliaParser(List<TokenRecord> bucket) {
         System.out.println("<program> -> function id() <block> end");
-    }
 
-    private void getBlock() {
-        System.out.println("<block> -> <statement> | <statement> <block>");
-        // TODO determine which it is
+        // create class Bucket which changes JuliaScanner.bucket into 'bucket' of arrays that store the token records by line ofc
+        // so each index of Bucket is an array which is just the token records found on that line
+        // iterate line by line
+        // local variable (for debugging) that records index/current line number in case error occurs
+        // keep in mind tokenrecord.blocknumber to check for correct amount of 'end's
+        //
     }
 
     private void getStatement() {

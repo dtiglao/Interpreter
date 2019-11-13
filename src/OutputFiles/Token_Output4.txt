@@ -1,38 +1,26 @@
-1003	Keyword			function
-3001	Identifier		a
-0116	LP_Op			(
-0117	RP_Op			)
-1005	Keyword			for
-3001	Identifier		i
-0100	Assign_Op		=
-2001	Int_Lit			3
-00019	Iter_Op			:
-2001	Int_Lit			5
-null	null			null
-null	null			null
-1007	Keyword			if
-0115	NotEq_Op		!=
-3001	Identifier		i
-2001	Int_Lit			4
-null	null			null
-null	null			null
-1011	Keyword			print
-0116	LP_Op			(
-3001	Identifier		i
-0117	RP_Op			)
-null	null			null
-null	null			null
-1009	Keyword			else
-null	null			null
-null	null			null
-1011	Keyword			print
-0116	LP_Op			(
-2001	Int_Lit			333
-0117	RP_Op			)
-null	null			null
-null	null			null
-1002	Keyword			end
-null	null			null
-null	null			null
-1002	Keyword			end
-1002	Keyword			end
+1	0	1003	Keyword			function
+1	0	3001	Identifier		a
+1	0	0116	LP_Op			(
+1	0	0117	RP_Op			)
+2	1	1005	Keyword			for
+2	1	3001	Identifier		i
+2	1	0100	Assign_Op		=
+2	1	2001	Int_Lit			3
+2	1	00019	Iter_Op			:
+2	1	2001	Int_Lit			5
+3	2	1007	Keyword			if
+3	2	0115	NotEq_Op		!=
+3	2	3001	Identifier		i
+3	2	2001	Int_Lit			4
+4	2	1011	Keyword			print
+4	2	0116	LP_Op			(
+4	2	3001	Identifier		i
+4	2	0117	RP_Op			)
+5	2	1009	Keyword			else
+6	2	1011	Keyword			print
+6	2	0116	LP_Op			(
+6	2	2001	Int_Lit			333
+6	2	0117	RP_Op			)
+7	1	1002	Keyword			end
+8	0	1002	Keyword			end
+9	-1	1002	Keyword			end

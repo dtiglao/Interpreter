@@ -1,26 +1,26 @@
-1003	Keyword			function
-3001	Identifier		w
-0116	LP_Op			(
-0117	RP_Op			)
-3001	Identifier		r
-0100	Assign_Op		=
-2001	Int_Lit			5
-1006	Keyword			while
-0113	LE_Op			<=
-3001	Identifier		r
-2001	Int_Lit			10
-1011	Keyword			print
-0116	LP_Op			(
-3001	Identifier		r
-0117	RP_Op			)
-3001	Identifier		r
-0100	Assign_Op		=
-0101	Plus_Op			+
-3001	Identifier		r
-2001	Int_Lit			1
-1002	Keyword			end
-1011	Keyword			print
-0116	LP_Op			(
-2001	Int_Lit			89
-0117	RP_Op			)
-1002	Keyword			end
+Line: 1	Block: 0		1003	Keyword			function
+Line: 1	Block: 0	3001	Identifier		w
+Line: 1	Block: 0		0116	LP_Op			(
+Line: 1	Block: 0		0117	RP_Op			)
+Line: 2	Block: 0	3001	Identifier		r
+Line: 2	Block: 0	0100	Assign_Op		=
+Line: 2	Block: 0		2001	Int_Lit			5
+Line: 3	Block: 1		1006	Keyword			while
+Line: 3	Block: 1		0113	LE_Op			<=
+Line: 3	Block: 1	3001	Identifier		r
+Line: 3	Block: 1		2001	Int_Lit			10
+Line: 4	Block: 1		1011	Keyword			print
+Line: 4	Block: 1		0116	LP_Op			(
+Line: 4	Block: 1	3001	Identifier		r
+Line: 4	Block: 1		0117	RP_Op			)
+Line: 5	Block: 1	3001	Identifier		r
+Line: 5	Block: 1	0100	Assign_Op		=
+Line: 5	Block: 1		0101	Plus_Op			+
+Line: 5	Block: 1	3001	Identifier		r
+Line: 5	Block: 1		2001	Int_Lit			1
+Line: 6	Block: 0		1002	Keyword			end
+Line: 7	Block: 0		1011	Keyword			print
+Line: 7	Block: 0		0116	LP_Op			(
+Line: 7	Block: 0		2001	Int_Lit			89
+Line: 7	Block: 0		0117	RP_Op			)
+Line: 8	Block: -1		1002	Keyword			end

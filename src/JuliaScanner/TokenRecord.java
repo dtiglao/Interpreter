@@ -6,7 +6,7 @@ package JuliaScanner;
  * There are 4 class attributes: lexeme, tokenCode, tokenName, and srcLine
  */
 
-public class TokenRecord {
+class TokenRecord {
 
     private String lexeme;
     private String tokenCode;
@@ -41,6 +41,8 @@ public class TokenRecord {
     String getTokenCode() {
         return this.tokenCode;
     }
+    int getBlockNumber() { return this.blockNumber; }
+    int getSrcLine() { return this.srcLine; }
 
     void setBlockNumber(int blockNumber) {
         this.blockNumber = blockNumber;
@@ -50,8 +52,9 @@ public class TokenRecord {
      * @return String
      */
     String printRecord() {
-        if (this.tokenName.length() > 7) { return tokenCode + "\t" + tokenName + "\t\t" + lexeme; }
-        else { return tokenCode + "\t" + tokenName + "\t\t\t" + lexeme; }
+        if (this.tokenName.length() > 7) { return srcLine + "\t" + blockNumber + "\t" +
+                tokenCode + "\t" + tokenName + "\t\t" + lexeme; }
+        else { return srcLine + "\t" + blockNumber + "\t" + tokenCode + "\t" + tokenName + "\t\t\t" + lexeme; }
     }
 
     /** idCode returns the tokenCode for all identifiers

@@ -10,7 +10,7 @@ import java.util.Scanner;
 class JuliaScanner {
     private String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
     private List<String> keywords = Arrays.asList(array);
-    private List<TokenRecord> bucket = new ArrayList<>(200);
+    private List<TokenRecord> bucket = new ArrayList<>(35);
     private int block_num = 0;
 
     JuliaScanner(File file) throws FileNotFoundException {
