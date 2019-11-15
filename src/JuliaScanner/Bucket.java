@@ -9,7 +9,7 @@ class Bucket {
         this.bucket = new ArrayList<>();
     }
 
-    TokenRecord[] getIndex(int i) {
+    TokenRecord[] grab(int i) {
         return this.bucket.get(i);
     }
 
@@ -23,6 +23,10 @@ class Bucket {
 
     ArrayList<TokenRecord[]> getBucket() {
         return this.bucket;
+    }
+
+    int size() {
+        return this.bucket.size();
     }
 
 

@@ -3,8 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d35f1e65-47a0-443b-9e25-2d6f5f09732f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Interpreter/OutputFiles/Token_Output1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/OutputFiles/Token_Output1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InputFiles/test4.jl" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputFiles/test4.jl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JuliaScanner/Bucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/Bucket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JuliaScanner/JuliaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/JuliaParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/JuliaScanner/JuliaScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/JuliaScanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/JuliaScanner/TestProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/TestProgram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JuliaScanner/TokenRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/TokenRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OutputFiles/Token_Output1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OutputFiles/Token_Output1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OutputFiles/Token_Output3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OutputFiles/Token_Output3.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OutputFiles/Token_Output4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OutputFiles/Token_Output4.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

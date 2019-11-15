@@ -150,7 +150,7 @@ class TokenRecord {
             case "And_Op":
                 return "0018";
             case "Iter_Op":
-                return "00019";
+                return "0019";
         }
         return "0000";
     }

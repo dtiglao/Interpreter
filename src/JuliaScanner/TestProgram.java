@@ -33,5 +33,7 @@ public class TestProgram {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        JuliaParser jParse = new JuliaParser(bucket);
     }
 }

@@ -9,28 +9,15 @@ import java.util.Scanner;
 
 class JuliaScanner {
     private String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
-    private List<String> keywords = Arrays.asList(array);
-    private Bucket bucket = new Bucket();
+    private List<String> keywords;
+    private Bucket bucket;
     private int block_num = 0;
 
     JuliaScanner(File file) throws FileNotFoundException {
-        this.keywords = keywords;
-        this.bucket = bucket;
+        this.keywords = Arrays.asList(array);
+        this.bucket = new Bucket();
         int s_line = 0;
         Scanner scan = new Scanner(file);
-
-        while (scan.hasNextLine()) {
-            String line = scan.nextLine();
-            s_line++;
-            String[] tokens = line.split(" ");
-            tokenCheck(tokens, bucket, s_line);
-        }
-    }
-
-    JuliaScanner(String str) {
-        this.keywords = keywords;
-        int s_line = 0;
-        Scanner scan = new Scanner(str);
 
         while (scan.hasNextLine()) {
             String line = scan.nextLine();
