@@ -10,7 +10,7 @@ import java.util.Scanner;
 class JuliaScanner {
     private String[] array = {"begin", "and", "if", "end", "function", "elseif", "else", "for", "while", "then", "print"};
     private List<String> keywords = Arrays.asList(array);
-    private List<TokenRecord> bucket = new ArrayList<>(35);
+    private Bucket bucket = new Bucket();
     private int block_num = 0;
 
     JuliaScanner(File file) throws FileNotFoundException {
@@ -40,7 +40,7 @@ class JuliaScanner {
         }
     }
 
-    List<TokenRecord> getBucket() {
+    Bucket getBucket() {
         return this.bucket;
     }
     int incBlock() { return block_num++; }
@@ -52,11 +52,13 @@ class JuliaScanner {
      * @param tokenList
      * @param srcLine
      */
-    private void tokenCheck(String[] tokens, List<TokenRecord> tokenList, int srcLine) {
+    private void tokenCheck(String[] tokens, Bucket tokenList, int srcLine) {
         TokenRecord token = new TokenRecord();
         boolean tokenAdded;
-        boolean space = false;
+        TokenRecord[] lineArray = new TokenRecord[tokens.length];
+        int index = 0;
         for (String t : tokens) {
+            if (index == lineArray.length) { lineArray = Arrays.copyOf(lineArray, lineArray.length + 1); }
             tokenAdded = false;
             if (t.contains(";")) {
                 t = t.substring(0, t.indexOf(";"));
@@ -105,9 +107,6 @@ class JuliaScanner {
                 tokenAdded = true;
             } if (!tokenAdded){
                 switch (t) {
-                    case " ":
-                        space = true;
-                        break;
                     case ":":
                         token = new TokenRecord(t, "Iter_Op", srcLine);
                         break;
@@ -203,8 +202,10 @@ class JuliaScanner {
             else if (b > 0) incBlock();
             token.setBlockNumber(block_num);
 
-            if (!space) { tokenList.add(token); }
+            lineArray[index] = token;
+            index++;
         }
+        tokenList.add(lineArray);
     }
 
     /** Forgot string s.replaceAll() was a thing so we created a function to get rid of all the tabs since the tabs were

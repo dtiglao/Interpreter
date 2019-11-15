@@ -19,14 +19,16 @@ public class TestProgram {
         File file = new File("src\\InputFiles\\test4.jl");
         JuliaScanner jScan = new JuliaScanner(file);
 
-        List<TokenRecord> bucket = jScan.getBucket();
+        Bucket bucket = jScan.getBucket();
 
         File out = new File("src\\OutputFiles\\Token_Output4.txt");
         try (BufferedWriter output = new BufferedWriter(new FileWriter(out))) {
-            for (TokenRecord tr : bucket) {
-                String str = tr.printRecord();
-                output.write(str);
-                output.newLine();
+            for (TokenRecord[] line : bucket.getBucket()) {
+                for (TokenRecord tr : line) {
+                    String str = tr.printRecord();
+                    output.write(str);
+                    output.newLine();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
