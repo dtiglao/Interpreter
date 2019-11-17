@@ -69,11 +69,11 @@ class JuliaScanner {
             }
             else if (t.matches("[-0-9.]+")) {
                 if ((t.startsWith("-") && t.contains(".")) || (t.contains(".") && t.length() > 1)) {
-                    token = new TokenRecord(t, "Float_Lit", srcLine);
+                    token = new TokenRecord(t, "<Float_Literal>", srcLine);
                     
                     tokenAdded = true;
                 } else if ((t.startsWith("-") && t.length() > 1) || (!t.startsWith("-") && !t.contains("."))) {
-                    token = new TokenRecord(t, "Int_Lit", srcLine);
+                    token = new TokenRecord(t, "<Integer_Literal>", srcLine);
                     
                     tokenAdded = true;
                 }
@@ -83,94 +83,94 @@ class JuliaScanner {
                     
                     tokenAdded = true;
                 } else if (t.matches("[A-Za-z0-9_]+")) {
-                    token = new TokenRecord(t, "Identifier", srcLine);
+                    token = new TokenRecord(t, "id", srcLine);
                     // find what kind
                     
                     tokenAdded = true;
                 }
             } else if (t.startsWith("\"")) {
-                token = new TokenRecord(t, "Str_Lit", srcLine);
+                token = new TokenRecord(t, "<String_Literal>", srcLine);
                 
                 tokenAdded = true;
             } if (!tokenAdded){
                 switch (t) {
                     case ":":
-                        token = new TokenRecord(t, "Iter_Op", srcLine);
+                        token = new TokenRecord(t, "<Iter_Operator>", srcLine);
                         break;
                     case "=":
-                        token = new TokenRecord(t, "Assign_Op", srcLine);
+                        token = new TokenRecord(t, "<Assignment_Operator>", srcLine);
                         
                         break;
                     case "+":
-                        token = new TokenRecord(t, "Plus_Op", srcLine);
+                        token = new TokenRecord(t, "<Plus_Operator>", srcLine);
                         
                         break;
                     case "-":
-                        token = new TokenRecord(t, "Minus_Op", srcLine);
+                        token = new TokenRecord(t, "<Minus_Operator>", srcLine);
                         
                         break;
                     case "*":
-                        token = new TokenRecord(t, "Mult_Op", srcLine);
+                        token = new TokenRecord(t, "<Multiplication_Operator>", srcLine);
                         
                         break;
                     case "/":
-                        token = new TokenRecord(t,"Div_Lit", srcLine);
+                        token = new TokenRecord(t,"<Division_Operator>", srcLine);
                         
                         break;
                     case "^":
-                        token = new TokenRecord(t, "Power_Op", srcLine);
+                        token = new TokenRecord(t, "<Power_Operator>", srcLine);
                         
                         break;
                     case ">":
-                        token = new TokenRecord(t, "GT_Op", srcLine);
+                        token = new TokenRecord(t, "<GT_Operator>", srcLine);
                         
                         break;
                     case ">=":
-                        token = new TokenRecord(t, "GE_Op", srcLine);
+                        token = new TokenRecord(t, "<GE_Operator>", srcLine);
                         
                         break;
                     case "<":
-                        token = new TokenRecord(t, "LT_Op", srcLine);
+                        token = new TokenRecord(t, "<LT_Operator>", srcLine);
                         
                         break;
                     case "<=":
-                        token = new TokenRecord(t, "LE_Op", srcLine);
+                        token = new TokenRecord(t, "<LE_Operator>", srcLine);
                         
                         break;
                     case "==":
-                        token = new TokenRecord(t, "Eq_Op", srcLine);
+                        token = new TokenRecord(t, "<Eq_Operator>", srcLine);
                         
                         break;
                     case "!=":
-                        token = new TokenRecord(t, "NotEq_Op", srcLine);
+                        token = new TokenRecord(t, "<NotEq_Operator>", srcLine);
                         
                         break;
                     case "\\":
-                        token = new TokenRecord(t, "RevDiv_Op", srcLine);
+                        token = new TokenRecord(t, "<ReverseDivision_Operator>", srcLine);
                         
                         break;
                     case "%":
-                        token = new TokenRecord(t, "Rem_Op", srcLine);
+                        token = new TokenRecord(t, "<Remainder_Operator>", srcLine);
                         
                         break;
                     case "+=":
-                        token = new TokenRecord(t, "IncBy_Op", srcLine);
+                        token = new TokenRecord(t, "<IncBy_Operator>", srcLine);
                         
                         break;
                     case "-=":
-                        token = new TokenRecord(t, "DecBy_Op", srcLine);
+                        token = new TokenRecord(t, "<DecBy_Operator>", srcLine);
                         
                         break;
                     case "(":
-                        token = new TokenRecord(t, "LP_Op", srcLine);
+                        token = new TokenRecord(t, "<LP_Operator>", srcLine);
                         
                         break;
                     case ")":
-                        token = new TokenRecord(t, "RP_Op", srcLine);
+                        token = new TokenRecord(t, "<RP_Operator>", srcLine);
                         
                         break;
                     case "&&":
-                        token = new TokenRecord(t, "And_Op", srcLine);
+                        token = new TokenRecord(t, "<And_Operator>", srcLine);
                         
                         break;
                     default:

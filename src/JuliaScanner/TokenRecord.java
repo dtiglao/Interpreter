@@ -25,9 +25,9 @@ class TokenRecord {
         this.tokenName = tokenName;
         this.srcLine = srcLine;
 
-        if (tokenName.contains("Op")) { this.tokenCode = opCode(tokenName); }
-        else if (tokenName.contains("Lit")) { this.tokenCode = litCode(tokenName); }
-        else if (tokenName.contains("Identifier")) { this.tokenCode = idCode(tokenName); }
+        if (tokenName.contains("Operator")) { this.tokenCode = opCode(tokenName); }
+        else if (tokenName.contains("Literal")) { this.tokenCode = litCode(tokenName); }
+        else if (tokenName.contains("id")) { this.tokenCode = idCode(tokenName); }
         else if (tokenName.contains("Function")) { this.tokenCode = funcCode(tokenName); }
         else { this.tokenCode = keywordCode(lexeme); }
     }
@@ -42,6 +42,7 @@ class TokenRecord {
         return this.tokenCode;
     }
     int getBlockNumber() { return this.blockNumber; }
+    String getLexeme() { return this.lexeme; }
     int getSrcLine() { return this.srcLine; }
 
     void setBlockNumber(int blockNumber) {
@@ -111,45 +112,45 @@ class TokenRecord {
      */
     private String opCode(String opName) {
         switch (opName) {
-            case "Assign_Op":
+            case "<Assignment_Operator>":
                 return "0100";
-            case "Plus_Op":
+            case "<Plus_Operator>":
                 return "0101";
-            case "Minus_Op":
+            case "<Minus_Operator>":
                 return "0102";
-            case "Mult_Op":
+            case "<Multiplication_Operator>":
                 return "0103";
-            case "Div_Op":
+            case "<Division_Operator>":
                 return "0104";
-            case "RevDiv_Op":
+            case "<ReverseDivision_Operator>":
                 return "0105";
-            case "Power_Op":
+            case "<Power_Operator>":
                 return "0106";
-            case "Rem_Op":
+            case "<Remainder_Operator>":
                 return "0107";
-            case "IncBy_Op":
+            case "<IncBy_Operator>":
                 return "0108";
-            case "DecBy_Op":
+            case "<DecBy_Operator>":
                 return "0109";
-            case "GT_Op":
+            case "<GT_Operator>":
                 return "0110";
-            case "GE_Op":
+            case "<GE_Operator>":
                 return "0111";
-            case "LT_Op":
+            case "<LT_Operator>":
                 return "0112";
-            case "LE_Op":
+            case "<LE_Operator>":
                 return "0113";
-            case "Eq_Op":
+            case "<Eq_Operator>":
                 return "0114";
-            case "NotEq_Op":
+            case "<NotEq_Operator>":
                 return "0115";
-            case "LP_Op":
+            case "<LP_Operator>":
                 return "0116";
-            case "RP_Op":
+            case "<RP_Operator>":
                 return "0117";
-            case "And_Op":
+            case "<And_Operator>":
                 return "0018";
-            case "Iter_Op":
+            case "<Iter_Operator>":
                 return "0019";
         }
         return "0000";
@@ -161,11 +162,11 @@ class TokenRecord {
      */
     private String litCode(String litName) {
         switch(litName) {
-            case "Int_Lit":
+            case "<Integer_Literal>":
                 return "2001";
-            case "Float_Lit":
+            case "<Float_Literal>":
                 return "2002";
-            case "Str_Lit":
+            case "<String_Literal>":
                 return "2003";
         }
         return "2000";
