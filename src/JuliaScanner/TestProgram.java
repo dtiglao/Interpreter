@@ -16,12 +16,12 @@ import java.util.List;
 public class TestProgram {
 
     public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("src\\InputFiles\\test4.jl");
+        File file = new File("src\\InputFiles\\test3.jl");
         JuliaScanner jScan = new JuliaScanner(file);
 
         Bucket bucket = jScan.getBucket();
 
-        File out = new File("src\\OutputFiles\\Token_Output4.txt");
+        File out = new File("src\\OutputFiles\\Token_Output3.txt");
         try (BufferedWriter output = new BufferedWriter(new FileWriter(out))) {
             for (TokenRecord[] line : bucket.getBucket()) {
                 for (TokenRecord tr : line) {

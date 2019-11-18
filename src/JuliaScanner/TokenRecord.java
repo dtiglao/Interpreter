@@ -43,6 +43,7 @@ class TokenRecord {
     }
     int getBlockNumber() { return this.blockNumber; }
     String getLexeme() { return this.lexeme; }
+    String getTokenName() { return this.tokenName; }
     int getSrcLine() { return this.srcLine; }
 
     void setBlockNumber(int blockNumber) {

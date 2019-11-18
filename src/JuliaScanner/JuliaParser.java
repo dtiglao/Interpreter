@@ -32,6 +32,7 @@ class JuliaParser {
                 // Don't need to run else through the parser since it's attached to if
                 //System.out.println(Arrays.toString(tempLine) + ":");
                 if (tempLine[0].equals("1009") || tempLine[0].equals("1002")) {
+                    assert true;
                 }
                 else if (Arrays.asList(tempLine).contains("1003")) {
                     getFunction(line, tempLine);
@@ -54,7 +55,8 @@ class JuliaParser {
             if (Arrays.equals(tokenCodes, funcTemplate)) {
                 System.out.println("<program> -> function id() <block> end");
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve function on line: " + lineNumber);
+                System.out.println("\nPARSING ERROR: Cannot resolve function on line " + lineNumber + ":\t"
+                + toString(line));
                 System.out.println("Please ensure that program statement follows proper structure: " +
                         "<program> -> function id() <block> end");
                 error = true;
@@ -85,7 +87,8 @@ class JuliaParser {
                         "<print_statement> | <for_statement>");
                 getAssignmentStatement(line, tokenCodes);
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve statement on line: " + lineNumber);
+                System.out.println("\nPARSING ERROR: Cannot resolve statement on line " + lineNumber+ ": "
+                        + toString(line));
                 error = true;
             }
         }
@@ -99,6 +102,7 @@ class JuliaParser {
                 System.out.println("<if_statement> -> if <boolean_expression> <block> else <block> end");
             }
             System.out.println(bool);
+            System.out.println(Arrays.copyOfRange(line, 1, line.length));
         } else {
             System.out.println("\nPARSING ERROR: Cannot resolve if statement on line: " + lineNumber);
             System.out.println("Please ensure that if statement follows proper structure: " +
@@ -115,8 +119,10 @@ class JuliaParser {
                 System.out.println("<while_statement> -> while <boolean_expression> <block> end");
             }
             System.out.println(bool);
+            System.out.println(tokenAssignments(Arrays.copyOfRange(line, 1, line.length)));
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve while statement on line: " + lineNumber);
+            System.out.println("\nPARSING ERROR: Cannot resolve while statement on line " + lineNumber + ":\t"
+                    + toString(line));
             System.out.println("Please ensure that while statement follows proper structure: " +
                     "<while_statement> -> while <boolean_expression> <block> end");
             error = true;
@@ -132,16 +138,19 @@ class JuliaParser {
                     System.out.println("<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
                 }
                 System.out.println(ar_exp);
-                    // TODO need to figure out how to print in pre-fix order
+                System.out.println(tokenAssignments(line));
+                //
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line: " + lineNumber);
-                System.out.println("\tToken '=' is in the wrong place.");
+                System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
+                        + toString(line));
+                System.out.println("Token '=' is in the wrong place.");
                 System.out.println("Please ensure that assignment statement follows proper structure: " +
                         "<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
                 error = true;
             }
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line: " + lineNumber);
+            System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
+                    + toString(line));
             System.out.println("\tId token is incorrect.");
             System.out.println("Please ensure that assignment statement follows proper structure: " +
                     "<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
@@ -151,7 +160,15 @@ class JuliaParser {
 
     private void getForStatement(TokenRecord[] line, String[] tokenCodes) {
         if (tokenCodes[0].equals("1005")) {
-            if (tokenCodes[2].equals("0100")) {
+            if (!tokenCodes[1].equals("3001")) {
+                error = true;
+                System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
+                        + toString(line));
+                System.out.println("Token " + line[1].getLexeme() + " should be an identifier.");
+                System.out.println("Please ensure that for statement follows proper structure: " +
+                        "<for_statement> -> for id = <iter> <block> end");
+            }
+            else if (tokenCodes[2].equals("0100")) {
                 String[] iterCodes = Arrays.copyOfRange(tokenCodes, 3, tokenCodes.length);
                 String iter = getIter(Arrays.copyOfRange(line, 3, line.length), iterCodes);
                 if (!error) {
@@ -159,14 +176,16 @@ class JuliaParser {
                 }
                 System.out.println(iter);
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve for statement on line: " + lineNumber);
-                System.out.println("\tToken " + line[2].getLexeme() + "should be Token '='.");
+                System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
+                        + toString(line));
+                System.out.println("Token " + line[2].getLexeme() + "should be Token '='.");
                 System.out.println("Please ensure that for statement follows proper structure: " +
                         "<for_statement> -> for id = <iter> <block> end");
                 error = true;
             }
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve for statement on line: " + lineNumber);
+            System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
+                    + toString(line));
             System.out.println("Please ensure that for statement follows proper structure: " +
                     "<for_statement> -> for id = <iter> <block> end");
             error = true;
@@ -184,21 +203,24 @@ class JuliaParser {
                     }
                     System.out.println(ar_exp);
                 } else {
-                    System.out.println("\nPARSING ERROR: Cannot resolve print statement on line: " + lineNumber);
-                    System.out.println("\tMissing right parentheses.");
+                    System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
+                            + toString(line));
+                    System.out.println("Missing right parentheses.");
                     System.out.println("Please ensure that print statement follows proper structure: " +
                             "<print_statement> -> print ( <arithmetic_expression> )");
                     error = true;
                 }
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve print statement on line: " + lineNumber);
-                System.out.println("\tMissing left parentheses.");
+                System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
+                        + toString(line));
+                System.out.println("Missing left parentheses.");
                 System.out.println("Please ensure that print statement follows proper structure: " +
                         "<print_statement> -> print ( <arithmetic_expression> )");
                 error = true;
             }
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve print statement on line: " + lineNumber);
+            System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
+                    + toString(line));
             System.out.println("Please ensure that print statement follows proper structure: " +
                     "<print_statement> -> print ( <arithmetic_expression> )");
             error = true;
@@ -215,8 +237,9 @@ class JuliaParser {
             }
         } else {
             error = true;
-            output = output + "\nPARSING ERROR: Cannot resolve iter on line: " + lineNumber;
-            output = output + "\n\tMissing Token ':'";
+            output = output + "\nPARSING ERROR: Cannot resolve iter on line " + lineNumber + ":\t"
+                    + toString(line);
+            output = output + "\nMissing Token ':'";
             output = output + "\nPlease ensure that <iter> follows proper structure: " +
                     "<iter> -> <arithmetic_expression> : <arithmetic_expression>";
         }
@@ -235,8 +258,9 @@ class JuliaParser {
             }
         } else {
             error = true;
-            output = output + "\nPARSING ERROR: Cannot resolve boolean expression on line: " + lineNumber;
-            output = output + "\n\tToken '" + line[0].getLexeme() + "' should be a relative operator.";
+            output = output + "\nPARSING ERROR: Cannot resolve boolean expression on line " + lineNumber + ":\t"
+                    + toString(line);
+            output = output + "\nToken '" + line[0].getLexeme() + "' should be a relative operator.";
             output = output + "\nPlease ensure that boolean expression follows proper structure: " +
                     "<boolean_expression> -> <relative_op> <arithmetic_expression> <arithmetic_expression>";
         }
@@ -267,8 +291,8 @@ class JuliaParser {
             return "<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>";
         } else {
             error = true;
-            return "\nPARSING ERROR: Cannot resolve arithmetic expression on line: " + lineNumber +
-                    "\n\tToken '" + tr + "' should either be of type <id> or <literal_integer>.";
+            return "\nPARSING ERROR: Cannot resolve arithmetic expression on line " + lineNumber + ":\t"
+                    + tr.getLexeme() + "\nToken '" + tr + "' should either be of type <id> or <literal_integer>.";
         }
     }
 
@@ -283,16 +307,18 @@ class JuliaParser {
                 try {
                     output = output + "\n" + getArithmeticExpression(line[2], tokenCodes[2]);
                 } catch (ArrayIndexOutOfBoundsException e){
-                    output = output + "\n\nPARSING ERROR: Cannot resolve binary expression on line: " + lineNumber;
-                    output = output + "\n\tMissing token.";
+                    output = output + "\n\nPARSING ERROR: Cannot resolve binary expression on line " + lineNumber + ":\t"
+                            + toString(line);
+                    output = output + "\nMissing token.";
                     output = output + "\nPlease ensure that binary expression follows proper structure: " +
                             "<binary_expression> -> <arithmetic_op> <arithmetic_expression> <arithmetic_expression>";
                     error = true;
                 }
             }
         } else {
-            output = output + "\n\nPARSING ERROR: Cannot resolve binary expression on line: " + lineNumber;
-            output = output + "\n\tToken '" + line[0].getLexeme() + "' should be an arithmetic operator.";
+            output = output + "\n\nPARSING ERROR: Cannot resolve binary expression on line " + lineNumber + ":\t"
+                    + toString(line);
+            output = output + "\nToken '" + line[0].getLexeme() + "' should be an arithmetic operator.";
             output = output + "\nPlease ensure that binary expression follows proper structure: " +
                     "<binary_expression> -> <arithmetic_op> <arithmetic_expression> <arithmetic_expression>";
             error = true;
@@ -303,5 +329,29 @@ class JuliaParser {
     private String getArithmeticOp() {
         return "<arithmetic_op> -> add_operator | sub_operator | mul_operator | div_operator | " +
                 "mod_operator | exp_operator | rev_div_operator";
+    }
+
+    private String toString(TokenRecord[] line) {
+        String output = "";
+        for (TokenRecord tr : line) {
+            output = output + tr.getLexeme() + " ";
+        }
+        return output;
+    }
+
+    private String tokenAssignments(TokenRecord[] line) {
+        String output = "";
+        int i = 0;
+        for (TokenRecord tr : line) {
+            if (!tr.getTokenCode().equals("0116") && !tr.getTokenCode().equals("0117")) {
+                if (i == 0) {
+                    output = output + tr.getLexeme() + " -> " + tr.getTokenName();
+                } else {
+                    output = output + "\n" + tr.getLexeme() + " -> " + tr.getTokenName();
+                }
+            }
+            i++;
+        }
+        return output;
     }
 }

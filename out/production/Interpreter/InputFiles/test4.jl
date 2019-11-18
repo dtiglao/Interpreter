@@ -1,6 +1,6 @@
 function a ( )
 for i = 3 : 5
-if y i 4
+if != i 4
 print ( i )
 else
 print ( 333 )

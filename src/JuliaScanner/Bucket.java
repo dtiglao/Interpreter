@@ -28,6 +28,4 @@ class Bucket {
     int size() {
         return this.bucket.size();
     }
-
-
 }

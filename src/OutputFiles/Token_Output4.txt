@@ -9,7 +9,7 @@
 2	1	0019	<Iter_Operator>		:
 2	1	2001	<Integer_Literal>		5
 3	2	1007	Keyword			if
-3	2	3001	id			y
+3	2	0115	<NotEq_Operator>		!=
 3	2	3001	id			i
 3	2	2001	<Integer_Literal>		4
 4	2	1011	Keyword			print

@@ -6,7 +6,7 @@
 2	0	0100	<Assignment_Operator>		=
 2	0	2001	<Integer_Literal>		5
 3	1	1006	Keyword			while
-3	1	3001	id			x
+3	1	0113	<LE_Operator>		<=
 3	1	3001	id			r
 3	1	2001	<Integer_Literal>		10
 4	1	1011	Keyword			print
