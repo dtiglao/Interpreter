@@ -1,5 +1,11 @@
 package JuliaScanner;
 
+/** Rosny Colas and Darius Tiglao
+ * Class: JuliaScanner
+ * JuliaScanner is the name of the Scanner object. We took the methods created from the first deliverable and created
+ * a class for them to reside in.
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

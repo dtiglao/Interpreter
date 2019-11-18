@@ -1,7 +1,12 @@
 package JuliaScanner;
 
-import java.util.Arrays;
+/** Rosny Colas and Darius Tiglao
+ * Class: JuliaParser
+ * JuliaParser creates a JuliaParser object that will parse through a bucket object checking for syntax along the way.
+ * The parsing process is broken up into many, MANY helper methods. Each grammar rule is broken up into its own method.
+ */
 
+import java.util.Arrays;
 
 class JuliaParser {
     private int lineNumber = 1;
@@ -102,7 +107,7 @@ class JuliaParser {
                 System.out.println("<if_statement> -> if <boolean_expression> <block> else <block> end");
             }
             System.out.println(bool);
-            System.out.println(Arrays.copyOfRange(line, 1, line.length));
+            System.out.println(tokenAssignments(Arrays.copyOfRange(line, 1, line.length)));
         } else {
             System.out.println("\nPARSING ERROR: Cannot resolve if statement on line: " + lineNumber);
             System.out.println("Please ensure that if statement follows proper structure: " +
@@ -151,7 +156,7 @@ class JuliaParser {
         } else {
             System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
                     + toString(line));
-            System.out.println("\tId token is incorrect.");
+            System.out.println("Id token is incorrect.");
             System.out.println("Please ensure that assignment statement follows proper structure: " +
                     "<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
             error = true;
@@ -175,6 +180,7 @@ class JuliaParser {
                     System.out.println("<for_statement> -> for id = <iter> <block> end");
                 }
                 System.out.println(iter);
+                System.out.println(tokenAssignments(Arrays.copyOfRange(line, 3, line.length)));
             } else {
                 System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
                         + toString(line));
@@ -200,8 +206,11 @@ class JuliaParser {
                             Arrays.copyOfRange(tokenCodes, 2, tokenCodes.length - 1));
                     if (!error) {
                         System.out.println("<print_statement> -> print ( <arithmetic_expression> )");
+                        System.out.println(ar_exp);
+                        System.out.println(tokenAssignments(Arrays.copyOfRange(line, 2, line.length - 1)));
+                    } else {
+                        System.out.println(ar_exp);
                     }
-                    System.out.println(ar_exp);
                 } else {
                     System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
                             + toString(line));
@@ -331,6 +340,7 @@ class JuliaParser {
                 "mod_operator | exp_operator | rev_div_operator";
     }
 
+    // Prints out the TokenRecords in a line array in a certain formatted way
     private String toString(TokenRecord[] line) {
         String output = "";
         for (TokenRecord tr : line) {
@@ -339,6 +349,7 @@ class JuliaParser {
         return output;
     }
 
+    // Prints out final token assignments
     private String tokenAssignments(TokenRecord[] line) {
         String output = "";
         int i = 0;
