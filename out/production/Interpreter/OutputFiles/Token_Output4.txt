@@ -3,7 +3,7 @@
 1	0	0116	<LP_Operator>		(
 1	0	0117	<RP_Operator>		)
 2	1	1005	Keyword			for
-2	1	0103	<Multiplication_Operator>		*
+2	1	3001	id			i
 2	1	0100	<Assignment_Operator>		=
 2	1	2001	<Integer_Literal>		3
 2	1	0019	<Iter_Operator>		:

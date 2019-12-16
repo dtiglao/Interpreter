@@ -25,11 +25,17 @@ class TokenRecord {
         this.tokenName = tokenName;
         this.srcLine = srcLine;
 
-        if (tokenName.contains("Operator")) { this.tokenCode = opCode(tokenName); }
-        else if (tokenName.contains("Literal")) { this.tokenCode = litCode(tokenName); }
-        else if (tokenName.contains("id")) { this.tokenCode = idCode(tokenName); }
-        else if (tokenName.contains("Function")) { this.tokenCode = funcCode(tokenName); }
-        else { this.tokenCode = keywordCode(lexeme); }
+        if (tokenName.contains("Operator")) {
+            this.tokenCode = opCode(tokenName);
+        } else if (tokenName.contains("Literal")) {
+            this.tokenCode = litCode(tokenName);
+        } else if (tokenName.contains("id")) {
+            this.tokenCode = idCode(tokenName);
+        } else if (tokenName.contains("Function")) {
+            this.tokenCode = funcCode(tokenName);
+        } else {
+            this.tokenCode = keywordCode(lexeme);
+        }
     }
 
     int blockCheck() {
@@ -41,25 +47,44 @@ class TokenRecord {
     String getTokenCode() {
         return this.tokenCode;
     }
-    int getBlockNumber() { return this.blockNumber; }
-    String getLexeme() { return this.lexeme; }
-    String getTokenName() { return this.tokenName; }
-    int getSrcLine() { return this.srcLine; }
+
+    int getBlockNumber() {
+        return this.blockNumber;
+    }
+
+    String getLexeme() {
+        return this.lexeme;
+    }
+
+    String getTokenName() {
+        return this.tokenName;
+    }
+
+    int getSrcLine() {
+        return this.srcLine;
+    }
 
     void setBlockNumber(int blockNumber) {
         this.blockNumber = blockNumber;
     }
 
-    /** printRecord will print the attributes of each TokenRecord
+    /**
+     * printRecord will print the attributes of each TokenRecord
+     *
      * @return String
      */
     String printRecord() {
-        if (this.tokenName.length() > 7) { return srcLine + "\t" + blockNumber + "\t" +
-                tokenCode + "\t" + tokenName + "\t\t" + lexeme; }
-        else { return srcLine + "\t" + blockNumber + "\t" + tokenCode + "\t" + tokenName + "\t\t\t" + lexeme; }
+        if (this.tokenName.length() > 7) {
+            return srcLine + "\t" + blockNumber + "\t" +
+                    tokenCode + "\t" + tokenName + "\t\t" + lexeme;
+        } else {
+            return srcLine + "\t" + blockNumber + "\t" + tokenCode + "\t" + tokenName + "\t\t\t" + lexeme;
+        }
     }
 
-    /** idCode returns the tokenCode for all identifiers
+    /**
+     * idCode returns the tokenCode for all identifiers
+     *
      * @param idName
      * @return tokenCode starting with "3---"
      */
@@ -67,7 +92,9 @@ class TokenRecord {
         return "3001";
     }
 
-    /** funcCode returns the funcCode for all functions found
+    /**
+     * funcCode returns the funcCode for all functions found
+     *
      * @param functionName
      * @return tokenCode starting with "4---"
      */
@@ -75,12 +102,14 @@ class TokenRecord {
         return "4001";
     }
 
-    /** keywordCode takes in a keyword and returns a code for the corresponding keyword
+    /**
+     * keywordCode takes in a keyword and returns a code for the corresponding keyword
+     *
      * @param keywordName
      * @return tokenCode starting with "1---"
      */
     private String keywordCode(String keywordName) {
-        switch(keywordName) {
+        switch (keywordName) {
             case "begin":
                 return "1001";
             case "end":
@@ -107,7 +136,9 @@ class TokenRecord {
         return "1000";
     }
 
-    /** opCode returns an operator code for each different operator
+    /**
+     * opCode returns an operator code for each different operator
+     *
      * @param opName
      * @return tokenCode starting with "0---"
      */
@@ -157,12 +188,14 @@ class TokenRecord {
         return "0000";
     }
 
-    /** litCode takes in the name of a literal and returns a code for the corresponding literal
+    /**
+     * litCode takes in the name of a literal and returns a code for the corresponding literal
+     *
      * @param litName
      * @return tokenCode starting with "2---"
      */
     private String litCode(String litName) {
-        switch(litName) {
+        switch (litName) {
             case "<Integer_Literal>":
                 return "2001";
             case "<Float_Literal>":

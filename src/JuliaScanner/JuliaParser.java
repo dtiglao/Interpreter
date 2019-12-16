@@ -1,6 +1,7 @@
 package JuliaScanner;
 
-/** Rosny Colas and Darius Tiglao
+/**
+ * Rosny Colas and Darius Tiglao
  * Class: JuliaParser
  * JuliaParser creates a JuliaParser object that will parse through a bucket object checking for syntax along the way.
  * The parsing process is broken up into many, MANY helper methods. Each grammar rule is broken up into its own method.
@@ -11,35 +12,36 @@ import java.util.Arrays;
 class JuliaParser {
     private int lineNumber = 1;
     private boolean error = false;
+    String parsed_output;
 
     JuliaParser(Bucket bucket) {
+        this.parsed_output = "";
         TokenRecord[] temp = bucket.grab(bucket.size() - 1);
         TokenRecord last = temp[temp.length - 1];
         if (last.getBlockNumber() > -1) {
-            System.out.println("\nPARSING ERROR: Function not ended properly. Please include 'end' keyword!");
+            write("\nPARSING ERROR: Function not ended properly. Please include 'end' keyword!");
             return;
         } else if (last.getBlockNumber() < -1) {
-            System.out.println("\nPARSING ERROR: Additional 'end' found. Please remove 'end' keyword");
+            write("\nPARSING ERROR: Additional 'end' found. Please remove 'end' keyword");
             return;
         }
         for (TokenRecord[] line : bucket.getBucket()) {
-            //System.out.println(Arrays.toString(line));
+            //write(Arrays.toString(line));
             if (!error) {
                 // CREATE TEMP VAR TO WORK WITH
                 String[] tempLine = new String[line.length];
                 for (int i = 0; i < line.length; i++) {
                     tempLine[i] = line[i].getTokenCode();
                 }
-                //System.out.println();
-                //System.out.println("\t" + Arrays.toString(tempLine));
+                //write();
+                //write("\t" + Arrays.toString(tempLine));
                 // NOW ONTO LOGIC
 
                 // Don't need to run else through the parser since it's attached to if
-                //System.out.println(Arrays.toString(tempLine) + ":");
+                //write(Arrays.toString(tempLine) + ":");
                 if (tempLine[0].equals("1009") || tempLine[0].equals("1002")) {
                     assert true;
-                }
-                else if (Arrays.asList(tempLine).contains("1003")) {
+                } else if (Arrays.asList(tempLine).contains("1003")) {
                     getFunction(line, tempLine);
                 } else {
                     getStatement(line, tempLine);
@@ -49,8 +51,12 @@ class JuliaParser {
                 // if an error is found, then the algorithm should close out
                 return;
             }
-            //System.out.println();
+            //write();
         }
+    }
+
+    private void write(String text) {
+        parsed_output = parsed_output + text + "\n";
     }
 
     private void getFunction(TokenRecord[] line, String[] tokenCodes) {
@@ -58,11 +64,11 @@ class JuliaParser {
             // function should match template {function, id, (, )}
             String[] funcTemplate = {"1003", "3001", "0116", "0117"};
             if (Arrays.equals(tokenCodes, funcTemplate)) {
-                System.out.println("<program> -> function id() <block> end");
+                write("<program> -> function id() <block> end");
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve function on line " + lineNumber + ":\t"
-                + toString(line));
-                System.out.println("Please ensure that program statement follows proper structure: " +
+                write("\nPARSING ERROR: Cannot resolve function on line " + lineNumber + ":\t"
+                        + toString(line));
+                write("Please ensure that program statement follows proper structure: " +
                         "<program> -> function id() <block> end");
                 error = true;
             }
@@ -72,27 +78,27 @@ class JuliaParser {
     private void getStatement(TokenRecord[] line, String[] tokenCodes) {
         if (!error) {
             if (Arrays.asList(tokenCodes).contains("1005")) {
-                System.out.println("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
+                write("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
                         "<print_statement> | <for_statement>");
                 getForStatement(line, tokenCodes);
             } else if (Arrays.asList(tokenCodes).contains("1006")) {
-                System.out.println("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
+                write("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
                         "<print_statement> | <for_statement>");
                 getWhileStatement(line, tokenCodes);
             } else if (Arrays.asList(tokenCodes).contains("1007")) {
-                System.out.println("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
+                write("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
                         "<print_statement> | <for_statement>");
                 getIfStatement(line, tokenCodes);
             } else if (Arrays.asList(tokenCodes).contains("1011")) {
-                System.out.println("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
+                write("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
                         "<print_statement> | <for_statement>");
                 getPrintStatement(line, tokenCodes);
             } else if (Arrays.asList(tokenCodes).contains("0100")) {
-                System.out.println("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
+                write("<statement> -> <if_statement> | <assignment_statement> | <while_statement> | " +
                         "<print_statement> | <for_statement>");
                 getAssignmentStatement(line, tokenCodes);
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve statement on line " + lineNumber+ ": "
+                write("\nPARSING ERROR: Cannot resolve statement on line " + lineNumber + ": "
                         + toString(line));
                 error = true;
             }
@@ -104,13 +110,13 @@ class JuliaParser {
             String[] boolExp = Arrays.copyOfRange(tokenCodes, 1, tokenCodes.length);
             String bool = getBooleanExpression(Arrays.copyOfRange(line, 1, line.length), boolExp);
             if (!error) {
-                System.out.println("<if_statement> -> if <boolean_expression> <block> else <block> end");
+                write("<if_statement> -> if <boolean_expression> <block> else <block> end");
             }
-            System.out.println(bool);
-            System.out.println(tokenAssignments(Arrays.copyOfRange(line, 1, line.length)));
+            write(bool);
+            write(tokenAssignments(Arrays.copyOfRange(line, 1, line.length)));
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve if statement on line: " + lineNumber);
-            System.out.println("Please ensure that if statement follows proper structure: " +
+            write("\nPARSING ERROR: Cannot resolve if statement on line: " + lineNumber);
+            write("Please ensure that if statement follows proper structure: " +
                     "<while_statement> -> while <boolean_expression> <block> end");
             error = true;
         }
@@ -121,14 +127,14 @@ class JuliaParser {
             String[] boolExp = Arrays.copyOfRange(tokenCodes, 1, tokenCodes.length);
             String bool = getBooleanExpression(Arrays.copyOfRange(line, 1, line.length), boolExp);
             if (!error) {
-                System.out.println("<while_statement> -> while <boolean_expression> <block> end");
+                write("<while_statement> -> while <boolean_expression> <block> end");
             }
-            System.out.println(bool);
-            System.out.println(tokenAssignments(Arrays.copyOfRange(line, 1, line.length)));
+            write(bool);
+            write(tokenAssignments(Arrays.copyOfRange(line, 1, line.length)));
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve while statement on line " + lineNumber + ":\t"
+            write("\nPARSING ERROR: Cannot resolve while statement on line " + lineNumber + ":\t"
                     + toString(line));
-            System.out.println("Please ensure that while statement follows proper structure: " +
+            write("Please ensure that while statement follows proper structure: " +
                     "<while_statement> -> while <boolean_expression> <block> end");
             error = true;
         }
@@ -140,24 +146,24 @@ class JuliaParser {
                 String ar_exp = getArithmeticExpression(Arrays.copyOfRange(line, 2, line.length),
                         Arrays.copyOfRange(tokenCodes, 2, tokenCodes.length));
                 if (!error) {
-                    System.out.println("<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
+                    write("<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
                 }
-                System.out.println(ar_exp);
-                System.out.println(tokenAssignments(line));
+                write(ar_exp);
+                write(tokenAssignments(line));
                 //
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
+                write("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
                         + toString(line));
-                System.out.println("Token '=' is in the wrong place.");
-                System.out.println("Please ensure that assignment statement follows proper structure: " +
+                write("Token '=' is in the wrong place.");
+                write("Please ensure that assignment statement follows proper structure: " +
                         "<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
                 error = true;
             }
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
+            write("\nPARSING ERROR: Cannot resolve assignment statement on line " + lineNumber + ":\t"
                     + toString(line));
-            System.out.println("Id token is incorrect.");
-            System.out.println("Please ensure that assignment statement follows proper structure: " +
+            write("Id token is incorrect.");
+            write("Please ensure that assignment statement follows proper structure: " +
                     "<assignment_statement> -> id <assignment_operator> <arithmetic_expression>");
             error = true;
         }
@@ -167,32 +173,31 @@ class JuliaParser {
         if (tokenCodes[0].equals("1005")) {
             if (!tokenCodes[1].equals("3001")) {
                 error = true;
-                System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
+                write("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
                         + toString(line));
-                System.out.println("Token " + line[1].getLexeme() + " should be an identifier.");
-                System.out.println("Please ensure that for statement follows proper structure: " +
+                write("Token " + line[1].getLexeme() + " should be an identifier.");
+                write("Please ensure that for statement follows proper structure: " +
                         "<for_statement> -> for id = <iter> <block> end");
-            }
-            else if (tokenCodes[2].equals("0100")) {
+            } else if (tokenCodes[2].equals("0100")) {
                 String[] iterCodes = Arrays.copyOfRange(tokenCodes, 3, tokenCodes.length);
                 String iter = getIter(Arrays.copyOfRange(line, 3, line.length), iterCodes);
                 if (!error) {
-                    System.out.println("<for_statement> -> for id = <iter> <block> end");
+                    write("<for_statement> -> for id = <iter> <block> end");
                 }
-                System.out.println(iter);
-                System.out.println(tokenAssignments(Arrays.copyOfRange(line, 3, line.length)));
+                write(iter);
+                write(tokenAssignments(Arrays.copyOfRange(line, 3, line.length)));
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
+                write("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
                         + toString(line));
-                System.out.println("Token " + line[2].getLexeme() + "should be Token '='.");
-                System.out.println("Please ensure that for statement follows proper structure: " +
+                write("Token " + line[2].getLexeme() + "should be Token '='.");
+                write("Please ensure that for statement follows proper structure: " +
                         "<for_statement> -> for id = <iter> <block> end");
                 error = true;
             }
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
+            write("\nPARSING ERROR: Cannot resolve for statement on line " + lineNumber + ":\t"
                     + toString(line));
-            System.out.println("Please ensure that for statement follows proper structure: " +
+            write("Please ensure that for statement follows proper structure: " +
                     "<for_statement> -> for id = <iter> <block> end");
             error = true;
         }
@@ -205,32 +210,32 @@ class JuliaParser {
                     String ar_exp = getArithmeticExpression(Arrays.copyOfRange(line, 2, line.length - 1),
                             Arrays.copyOfRange(tokenCodes, 2, tokenCodes.length - 1));
                     if (!error) {
-                        System.out.println("<print_statement> -> print ( <arithmetic_expression> )");
-                        System.out.println(ar_exp);
-                        System.out.println(tokenAssignments(Arrays.copyOfRange(line, 2, line.length - 1)));
+                        write("<print_statement> -> print ( <arithmetic_expression> )");
+                        write(ar_exp);
+                        write(tokenAssignments(Arrays.copyOfRange(line, 2, line.length - 1)));
                     } else {
-                        System.out.println(ar_exp);
+                        write(ar_exp);
                     }
                 } else {
-                    System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
+                    write("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
                             + toString(line));
-                    System.out.println("Missing right parentheses.");
-                    System.out.println("Please ensure that print statement follows proper structure: " +
+                    write("Missing right parentheses.");
+                    write("Please ensure that print statement follows proper structure: " +
                             "<print_statement> -> print ( <arithmetic_expression> )");
                     error = true;
                 }
             } else {
-                System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
+                write("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
                         + toString(line));
-                System.out.println("Missing left parentheses.");
-                System.out.println("Please ensure that print statement follows proper structure: " +
+                write("Missing left parentheses.");
+                write("Please ensure that print statement follows proper structure: " +
                         "<print_statement> -> print ( <arithmetic_expression> )");
                 error = true;
             }
         } else {
-            System.out.println("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
+            write("\nPARSING ERROR: Cannot resolve print statement on line " + lineNumber + ":\t"
                     + toString(line));
-            System.out.println("Please ensure that print statement follows proper structure: " +
+            write("Please ensure that print statement follows proper structure: " +
                     "<print_statement> -> print ( <arithmetic_expression> )");
             error = true;
         }
@@ -282,8 +287,8 @@ class JuliaParser {
     }
 
     private String getArithmeticExpression(TokenRecord[] line, String[] tokenCodes) {
-        //System.out.println("ar -> array");
-        //System.out.println(Arrays.toString(tokenCodes));
+        //write("ar -> array");
+        //write(Arrays.toString(tokenCodes));
         String output = "";
         output = output + "<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>";
         if (tokenCodes.length > 1) {
@@ -295,7 +300,7 @@ class JuliaParser {
     }
 
     private String getArithmeticExpression(TokenRecord tr, String tokenCode) {
-        //System.out.println("ar -> string");
+        //write("ar -> string");
         if (tokenCode.equals("3001") || tokenCode.equals("2001")) {
             return "<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>";
         } else {
@@ -315,7 +320,7 @@ class JuliaParser {
             if (!error) {
                 try {
                     output = output + "\n" + getArithmeticExpression(line[2], tokenCodes[2]);
-                } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     output = output + "\n\nPARSING ERROR: Cannot resolve binary expression on line " + lineNumber + ":\t"
                             + toString(line);
                     output = output + "\nMissing token.";

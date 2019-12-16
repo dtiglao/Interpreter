@@ -1,0 +1,35 @@
+<program> -> function id() <block> end
+<statement> -> <if_statement> | <assignment_statement> | <while_statement> | <print_statement> | <for_statement>
+<assignment_statement> -> id <assignment_operator> <arithmetic_expression>
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+x -> id
+= -> <Assignment_Operator>
+2 -> <Integer_Literal>
+<statement> -> <if_statement> | <assignment_statement> | <while_statement> | <print_statement> | <for_statement>
+<assignment_statement> -> id <assignment_operator> <arithmetic_expression>
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+y -> id
+= -> <Assignment_Operator>
+3 -> <Integer_Literal>
+<statement> -> <if_statement> | <assignment_statement> | <while_statement> | <print_statement> | <for_statement>
+<assignment_statement> -> id <assignment_operator> <arithmetic_expression>
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+<binary_expression> -> <arithmetic_op> <arithmetic_expression> <arithmetic_expression>
+<arithmetic_op> -> add_operator | sub_operator | mul_operator | div_operator | mod_operator | exp_operator | rev_div_operator
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+z -> id
+= -> <Assignment_Operator>
++ -> <Plus_Operator>
+x -> id
+y -> id
+<statement> -> <if_statement> | <assignment_statement> | <while_statement> | <print_statement> | <for_statement>
+<print_statement> -> print ( <arithmetic_expression> )
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+z -> id
+<statement> -> <if_statement> | <assignment_statement> | <while_statement> | <print_statement> | <for_statement>
+<assignment_statement> -> id <assignment_operator> <arithmetic_expression>
+<arithmetic_expression> -> <id> | <literal_integer> | <binary_expression>
+z -> id
+= -> <Assignment_Operator>
+z -> id

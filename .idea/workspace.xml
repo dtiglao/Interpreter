@@ -3,19 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="d35f1e65-47a0-443b-9e25-2d6f5f09732f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/Bucket.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/Bucket.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/JuliaParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/JuliaParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/JuliaScanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/JuliaScanner.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/TestProgram.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/TestProgram.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Interpreter/OutputFiles/Token_Output3.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/OutputFiles/Token_Output3.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/TokenRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/JuliaScanner/TokenRecord.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Interpreter/OutputFiles/Token_Output4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interpreter/OutputFiles/Token_Output4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InputFiles/test1.jl" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputFiles/test1.jl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/InputFiles/test2.jl" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputFiles/test2.jl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JuliaScanner/Bucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/Bucket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/JuliaScanner/JuliaParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/JuliaParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/JuliaScanner/JuliaScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/JuliaScanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/JuliaScanner/TestProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/TestProgram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OutputFiles/Token_Output2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OutputFiles/Token_Output2.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/OutputFiles/Token_Output4.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OutputFiles/Token_Output4.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/JuliaScanner/TokenRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/JuliaScanner/TokenRecord.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,9 +67,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TokenRecord" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="JuliaScanner.TokenRecord" />
+      <module name="Interpreter" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="JuliaScanner.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TestProgram (1)" />
+        <item itemvalue="Application.TokenRecord" />
         <item itemvalue="Application.TestProgram" />
       </list>
     </recent_temporary>
